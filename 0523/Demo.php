@@ -50,4 +50,6 @@ class Register2{
 
 $em = new Email();
 $re = new Register2();
-$re->register($em);
+$re->register($em);$re->register($em);
+
+echo 'github test';
