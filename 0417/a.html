@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>test-jquery-ajax-list</title>
+</head>
+<body>
+<div class="main">
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>sex</th>
+<th>time </th>
+</tr>
+</thead>
+<tbody id="infolist">
+</tbody>
+</table>
+</div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		getList();
+		function getList(){
+			// jquery ajax 请求
+			$.ajax({
+				type:'post', //请求方式，默认get
+				url :"a1.php",
+				data:{
+				getFunction:1
+				},success:function(data,status){
+					$('#infolist').html('');
+					$str = '';
+					$.each(data.list,function(i,val){
+					$str = $str + '<tr>';
+					$str = $str + '<td> '+val.id+' </td>';
+					$str = $str + '<td> '+val.userName+' </td>';
+					$str = $str + '<td> '+val.gender+' </td>';
+					$str = $str + '<td> '+val.birth+' </td>';
+					$str = $str + '</tr>';
+					});
+					$('#infolist').append($str);
+					if(data.list == "" || data.list.length < 0 || data.list == "undefined"){
+					$('#infolist').html('<td colspan="10" style="height:200px;text-align:center;color: #23527c">暂无相关数据...</td>');
+					}
+				},error:function(data,statsu){
+					alert("发送请求失败！");
+				}
+			});
+		}
+	});
+</script>
+</html>

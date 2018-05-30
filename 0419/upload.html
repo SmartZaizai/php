@@ -1,0 +1,55 @@
+<html>  
+    <head>
+    <meta charset="UTF-8">
+    <title>Picture Upload</title>  
+    </head>  
+    <script src="<span style="font-family:Consolas, Bitstream Vera Sans Mono, Courier New, Courier, monospace;color:#0000ff;"><span style="font-size: 13.3333px; line-height: 14.6667px;">http://code.jquery.com/jquery-latest.js</span></span>" type="text/javascript"></script>  
+    <body>  
+        <form id="uploadForm">  
+            <tr>  
+                <td>图片上传:</td>  
+                <td>  
+                    <input type="text" id="picUrl" name="picUrl" size="50%">  
+                    <br />  
+                    <button id="picUpload" type="button">上传图片</button>  
+                    <div id='uploadLog'></div>  
+                    <br />  
+                    <img style="width: 500px; height: 200px;" src="" id="thumbImg" alt="缩略图" />  
+                </td>  
+            </tr>  
+        </form>  
+          
+        <form id='formFile' name='formFile' method="post" action="picuploadPHP.php" target='iframeFile' enctype="multipart/form-data">  
+            <input type='file' id='img' name='img' style="display: none;"/>  
+        </form>  
+          
+        <iframe id='iframeFile' name='iframeFile' style='display: none;'></iframe>  
+          
+        <script>  
+        $(function() {  
+            $('#picUpload').click(function(){//按钮被点击  
+               $('#img').click();  
+            });  
+              
+            $('#img').change(function() {  
+                $('#uploadLog').html('开始上传中....');  
+                $('#formFile').submit();  
+            });  
+        })  
+        function uploadCallback(ret) {  
+            var ret = JSON.parse(ret);//注意JSON.parse中的转义字符（\）  
+                                      //http://www.jb51.net/article/39828.htm  
+            if(ret.error_no == 0){  
+                alert('图片上传成功！');  
+                $('#uploadLog').html('');  
+                $('#thumbImg').attr('src', ret.browserUrl);  
+                $('#picUrl').val(ret.serverUrl);  
+            }else{  
+                $('#uploadLog').html('');  
+                alert(ret.error_info);  
+            }  
+        }  
+        </script>  
+          
+    </body>  
+</html> 

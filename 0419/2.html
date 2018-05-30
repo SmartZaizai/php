@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('button').click(function(){
+
+			// alert($('#fileName').val())
+			
+
+			var fileName = $('#fileName').val();			
+			var fileJpg = $('#fileJpg')[0].files[0];
+
+
+			
+			var formData = new FormData();  
+  
+            formData.append('fileName',fileName);                           
+            formData.append('fileJpg',fileJpg);  //
+	        
+	        // console.log($('#fileJpg')[0].files[0]);
+             
+			$.ajax({
+
+				type:'post',
+				url:'server1.php',
+				//fileElementId:'fileJpg',
+				// data:{
+				// 	fileName:$('#fileName').val()
+				// },
+				data:formData,
+				//如果传递的是FormData数据类型，那么下来的三个参数是必须的，否则会报错
+				cache:false,  //默认是true，但是一般不做缓存  
+	            processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就会将FormData转换为String类型  
+	            contentType:false,  //
+	            dataType:"json", //声明成功使用json数据类型回调  
+				success:function(msg){
+					$('p').append('图片保存文件夹:'+msg.fileName+",图片名称："+msg.fileJpg);
+				},error:function(data,status,e){
+					alert(e)
+				}
+
+
+
+			})
+
+
+
+		})
+
+	})
+	</script>
+</head>
+<body>
+	文件夹: <input type="text" name="fileName" id='fileName'><br>
+	选择文件：<input type="file" name="fileJpg" id="fileJpg"><br>
+	<button>提交</button>
+	<p></p>
+</body>
+</html>

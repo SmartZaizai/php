@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('button').click(function(){
+
+			var name = $('#yourName').val();
+			var age = $('#yourAge').val();
+
+			
+			var file1 = $('#file')[0].files[0];
+			var file2 = $('#file2')[0].files[0];
+
+
+			console.log(file1);
+			console.log(file2);
+			// /
+
+			 var formData = new FormData();  
+  
+             formData.append('name',name);               
+             formData.append('age',age);              
+             formData.append('file[]',file1);  
+             formData.append('file[]',file2);  //叠加成数组，传给php  
+
+			 $.ajax({  
+	             type: "POST",  
+	             url: "server.php",  //同目录下的php文件               
+	             data:formData,  
+
+
+	             dataType:"json", //声明成功使用json数据类型回调  
+	  
+	            //如果传递的是FormData数据类型，那么下来的三个参数是必须的，否则会报错  
+	             cache:false,  //默认是true，但是一般不做缓存  
+	             processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就会将FormData转换为String类型  
+	             contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false  
+	               
+	             success: function(msg){  //请求成功后的回调函数  
+	               
+	                $("#result").append("你的名字是"+msg.name+"，年龄："+msg.age+"，上传的文件名1："+msg.file1+"，上传的文件名2："+msg.file2);  
+	  
+	            },
+	            // error: function(XMLHttpRequest, textStatus, errorThrown) {
+             //            alert(XMLHttpRequest.status);
+             //            alert(XMLHttpRequest.readyState);
+             //            alert(textStatus);
+             //        } 
+        	});  
+  
+      })  
+  })  
+
+
+	</script>
+</head>
+<body>
+	姓名：<input type="text" name="name" id="yourName"><br>
+	年龄：<input type="text" name="age" id="yourAge"><br>
+	选择文件1：<input type="file" name="file" id="file" name="file1"><br>
+	选择文件2：<input type="file" name="file" id="file2"><br>
+	<button id="send">确定</button>
+	<br><br><br>
+	<div id="result">结果：</div>
+</body>
+</html>

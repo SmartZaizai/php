@@ -1,0 +1,148 @@
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+.header{
+	width: 100%;
+	height: 40px;
+	background: #D18B00;
+}
+
+
+.header .container .left{
+	line-height: 40px;
+	width: 300px;
+	/*background-color: red;*/
+	float: left;
+}
+
+
+/*QQ空间背景图片*/
+.header .container .left .icon{
+	background-image: url('../../static/imgs/icon.png');
+	background-position: 0px -2px;
+	float: left;
+	width: 90px;
+	height: 40px;
+}
+
+/*home图标*/
+.header .container .left .fa-home{
+	padding-left: 15px;
+	/*line-height: 40px;*/
+	color: #ffffff;	
+	font-size: 1.3em;
+}
+
+/*他的主页/他的动态公用样式*/
+.header .container .left .home{	
+	/*line-height: 40px;*/
+	color: #ffffff;	
+	font-size: 1.1em;
+}
+
+/*user图标*/
+.header .container .left .fa-user{
+	padding-left: 15px;
+	/*line-height: 40px;*/
+	color: #ffffff;	
+	font-size: 1.3em;
+}
+
+
+
+
+/*header 右侧css*/
+
+/*右侧大小区域*/
+.header .container .right{
+	line-height: 40px;
+	width: 470px;
+	/*background-color: red;*/
+	float: right;
+	min-width: 470px;	
+}
+
+
+/*输入框&搜索图标 div*/
+/*.header .container .right .searchinput{*/
+	/*position: relative;	*/
+	/*background-color: red;*/
+/*}*/
+
+
+/*输入框*/
+.header .container .right .searchinput .search{
+	width: 140px;
+	height: 20px;
+	border: 0px;
+	border-radius: 5px;
+	background-color: #DDA840;	
+	/*display: inline-block;*/
+}
+
+/*placeholder 颜色修改*/
+input::placeholder{
+	color: #ffffff;
+	text-align: left;
+}
+
+/*search 搜索图标*/
+.header .container .right .searchinput i{	
+	position: relative;
+	left: -20px;
+	color: #ffffff;
+}
+
+
+/*search span | 分割线*/
+.header .container .right span{	
+	/*position: relative;
+	left: -20px;*/
+	color: #E69700;
+}
+
+
+
+.header .container .right .link{	
+	/*line-height: 40px;*/
+	color: #ffffff;	
+	font-size: 1.1em;
+}
+
+
+.header .container .right .userinfo{
+	float: right;
+	margin-top: -40px;
+	margin-right: 75px;
+}
+
+
+.header .container .right .userinfo img{	
+	/*position: relative;
+	left: -20px;*/	
+	width: 24px;
+	height: 24px;
+	margin-top:-6px;
+}
+
+
+
+
+
+
+
+
+.body{
+
+	width: 100%;
+	height: 300px;
+	background-color: #eeff00;
+}
+
+.footer{
+	width: 100%;
+	height: 60px;
+	background-color: #18ff00;
+}

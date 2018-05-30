@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+
+			// 1.验证邮箱
+			$('#email').blur(function(){
+
+					$.post('admin/check.php?check=email', 'email='+$('#email').val(), function(data){
+
+							// 清除#email同胞元素span
+							
+							$(':text#email').next('span').remove();
+							
+							//根据json键值判断
+							
+							if(data.status==0){
+								// #email后创建span元素，并在span中插入data.msg,让光标停留在前一个同胞元素#email中
+								$(':text#email').after('<span>').next().text(data.msg).prev('#email').focus();								
+							}else if(data.status==1){
+								$(':text#email').after('<span>').next().text(data.msg).prev('#email').focus();
+								
+							}else if(data.status==2){
+								$(':text#email').after('<span>').next().text(data.msg).prev('#email').focus();
+								
+							}else{
+								$(':text#email').after('<span color=green>').next().text(data.msg)
+							}
+
+							
+					},'json')
+
+			})
+			// 1.end
+
+
+
+
+			// 2.验证输入密码
+			$('#password1').blur(function(){
+				
+				if ($('#email').val().length == 0) {
+					return false
+				}
+
+				$.post('admin/check.php?check=password1','password1='+$('#password1').val(),function(data){
+						
+						$(':password#password1').next('span').remove();
+						
+						if(data.status==0){							
+							$(':password#password1').after('<span>').next().text(data.msg).prev('#password1').focus();
+						}else{
+							$(':password#password1').after('<span>').next().text(data.msg).prev('#password1');
+						}
+
+					},'json')
+
+			})
+			//2.end
+			//
+			//
+			
+
+			// 3.验证确认密码
+			$('#password2').blur(function(){
+				
+				if ($('#email').val().length == 0 || $('#password1').val().length == 0) {
+					return false
+				}
+				
+				$.post('admin/check.php?check=password2',
+						{
+							password1: $('#password1').val(),
+							password2: $('#password2').val()
+						},
+
+						function(data){
+						
+							$(':password#password2').next('span').remove();
+							
+							if(data.status==0){							
+								$(':password#password2').after('<span>').next().text(data.msg).prev('#password2').focus();
+							}else if(data.status==1){
+								$(':password#password2').after('<span>').next().text(data.msg).prev('#password2').focus();	
+							}else{
+								$(':password#password2').after('<span>').next().text(data.msg).prev('#password2');	
+							}
+
+					},'json')
+
+			})
+			//2.end
+
+
+
+
+
+
+
+		})
+
+
+
+	</script>
+
+	<style type="text/css">
+		div{
+			width: 400px;
+			background-color: #00ffff;
+			border-radius: 8%;
+			padding: 20px;
+			box-shadow: 13px 13px 13px #fcf;
+		}
+	</style>
+
+
+</head>
+<body>
+	
+	<div>
+
+		<p><label for="email">邮箱地址</label><input type="text" id="email" name="email"></p>
+		<p><label for="password1">登陆密码</label><input type="password" id="password1" name="password1"></p>
+		<p><label for="password2">密码确认</label><input type="password" id="password2" name="password2"></p>
+		<p>
+			<label for="sex">性别</label>
+			<input type="radio" id="male" name="sex" value="male">男
+			<input type="radio" id="female" name="sex" value="female">女
+			<input type="radio" id="secret" name="sex" value="secret" checked="">保密
+		</p>
+		<p> <label for="level">能力等级</label>
+			<select name="level" id="level">
+				<option value="0">小白</option>
+				<option value="1" selected="">中级</option>
+				<option value="2">大神</option>
+			</select>
+		</p>
+		<p>
+			<label for="sex">编程语言</label>
+			<input type="checkbox" id="php" name="lang[]"  value="php" checked="">PHP
+			<input type="checkbox" id="java" name="lang[]" value="java">Java
+			<input type="checkbox" id="c" name="lang[]" value="c">C#
+			<input type="checkbox" id="python" name="lang[]" value="python">python
+		</p>
+		<p>
+			<label for="content">简介</label>
+			<textarea id="content" cols="35%" rows="5"></textarea>
+		</p>
+		<p>			
+			<button>提交</button>
+		</p>
+		
+
+
+	</div>
+
+	
+</body>
+</html>
+
